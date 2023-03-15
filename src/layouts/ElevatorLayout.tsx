@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { type PropsWithChildren, type ReactNode } from "react";
+import type { FC, PropsWithChildren, ReactNode } from "react";
 
 const labels = ["Home", "About Me", "Projects", "Contact Me"] as const;
 const [home, aboutMe, projects, contactMe] = labels;
@@ -65,7 +65,7 @@ const Elevator = ({
             className="absolute inset-0 flex select-none items-center justify-center"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
-            exit={{ y: "-100%", transition: { duration: 1, delay: 1 } }}
+            exit={{ y: "-100%", transition: { delay: 1, duration: 1 } }}
             transition={{ duration: 1 }}
           >
             {currentLabel}
@@ -75,28 +75,14 @@ const Elevator = ({
       <div className="flex h-full justify-between">
         <div className="hidden bg-elevator" />
         <div className="relative flex-1 overflow-hidden">
-          <div className="absolute z-0 flex h-full w-full">
-            <motion.div
-              key="door-left"
-              className="z-0 box-border h-full w-1/2 border-8 border-gray-300 bg-green-100/30 backdrop-blur"
-              initial={{ x: 0 }}
-              animate={{ x: "-100%" }}
-              exit={{ x: 0, transition: { delay: 0, duration: 1 } }}
-              transition={{ delay: 1, duration: 1 }}
-            />
-            <motion.div
-              key="door-right"
-              className="z-0 box-border h-full w-1/2 border-8 border-gray-300 bg-green-100/30 backdrop-blur"
-              initial={{ x: 0 }}
-              animate={{ x: "100%" }}
-              exit={{ x: 0, transition: { delay: 0, duration: 1 } }}
-              transition={{ delay: 1, duration: 1 }}
-            />
+          <div className="absolute flex h-full w-full">
+            <ElevatorDoor direction="left" />
+            <ElevatorDoor direction="right" />
           </div>
           <motion.div
-            className="absolute -z-10 h-full w-full"
+            className="absolute h-full w-full"
             initial={{ y: "100%" }}
-            animate={{ y: 0 }}
+            animate={{ y: 0, zIndex: -99, transitionEnd: { zIndex: 0 } }}
             exit={{ y: "-100%", transition: { delay: 1, duration: 1 } }}
             transition={{ duration: 1 }}
           >
@@ -124,5 +110,25 @@ const Elevator = ({
         </div>
       </div>
     </div>
+  );
+};
+
+type ElevatorDoorProps = {
+  direction: "left" | "right";
+};
+
+const ElevatorDoor: FC<ElevatorDoorProps> = ({ direction }) => {
+  return (
+    <motion.div
+      key={`door-${direction}`}
+      className="box-border h-full w-1/2 border-8 border-gray-300 bg-green-100/30 backdrop-blur"
+      initial={{ x: 0 }}
+      animate={{
+        zIndex: 99,
+        x: direction === "left" ? "-100%" : "100%",
+      }}
+      exit={{ x: 0, transition: { duration: 1 } }}
+      transition={{ delay: 1, duration: 1 }}
+    />
   );
 };
