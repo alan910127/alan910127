@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { motion } from "framer-motion";
 import { type NextPage } from "next";
 import Head from "next/head";
@@ -107,9 +108,9 @@ const Elevator = ({
             {links.map((link, index) => (
               <li
                 key={index}
-                className={`h-9 w-9 rounded-full bg-gray-500 ${
-                  router.route === link.href ? "outline outline-orange-400" : ""
-                }`}
+                className={cn("h-9 w-9 rounded-full bg-gray-500", {
+                  "outline outline-orange-400": router.route === link.href,
+                })}
               >
                 <Link
                   href={link.href}
