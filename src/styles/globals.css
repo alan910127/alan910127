@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply min-h-screen w-full bg-yellow-50 font-inter;
+}
+
+#__next{
+    @apply h-full w-full;
+}
