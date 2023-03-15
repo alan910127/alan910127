@@ -7,7 +7,8 @@ const config = {
   theme: {
     extend: {
       colors: {
-        elevator: "#854d0e",
+        content: "#fcfcf2",
+        elevator: "#b2c5d6",
       },
       fontFamily: {
         inter: ["var(--font-inter)", ...fontFamily.sans],

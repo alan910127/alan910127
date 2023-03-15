@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import type { FC, PropsWithChildren, ReactNode } from "react";
+import { type FC, type PropsWithChildren, type ReactNode } from "react";
 
 const labels = ["Home", "About Me", "Projects", "Contact Me"] as const;
 const [home, aboutMe, projects, contactMe] = labels;
@@ -47,67 +47,69 @@ export const ElevatorLayout: NextPage<ElevatorLayoutProps> = ({
   );
 };
 
+const transition = { duration: 1 };
+const delayedTransition = { delay: 1, duration: 1 };
+
 type ElevatorProps = PropsWithChildren<{
   currentLabel: ElevatorLabel;
 }>;
 
-const Elevator = ({
+const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
   children,
   currentLabel,
-}: PropsWithChildren<ElevatorProps>) => {
-  const router = useRouter();
-
+}) => {
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="relative h-32 w-full bg-elevator">
-        <p className="absolute bottom-0 mb-4 ml-16 h-8 w-40 overflow-hidden rounded bg-black font-elevator text-xl font-extrabold text-orange-300">
-          <motion.span
-            className="absolute inset-0 flex select-none items-center justify-center"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%", transition: { delay: 1, duration: 1 } }}
-            transition={{ duration: 1 }}
-          >
-            {currentLabel}
-          </motion.span>
-        </p>
-      </div>
-      <div className="flex h-full justify-between">
-        <div className="hidden bg-elevator" />
-        <div className="relative flex-1 overflow-hidden">
+    <div className="flex h-full w-full">
+      {/* left hand side of the elevator */}
+      <div className="ml-auto hidden h-full sm:block sm:min-w-[5rem] md:min-w-[6-rem] lg:min-w-[8rem]" />
+
+      {/* middle of the elevator */}
+      <div className="flex h-full flex-grow flex-col xl:max-w-screen-xl">
+        {/* top information panel */}
+        <div className="flex h-32 flex-col items-center justify-end">
+          <p className="mb-4 flex h-8 w-40 items-center justify-center overflow-hidden rounded bg-black">
+            <motion.span
+              className="select-none font-elevator text-xl font-extrabold text-white"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%", transition: delayedTransition }}
+              transition={transition}
+            >
+              {currentLabel}
+            </motion.span>
+          </p>
+        </div>
+
+        {/* door and page content */}
+        <div className="relative z-[-100] w-full flex-1 overflow-hidden bg-content">
           <div className="absolute flex h-full w-full">
             <ElevatorDoor direction="left" />
             <ElevatorDoor direction="right" />
           </div>
+
           <motion.div
-            className="absolute h-full w-full"
+            className="absolute h-full w-full overflow-hidden border-2 border-gray-600"
             initial={{ y: "100%" }}
-            animate={{ y: 0, zIndex: -99, transitionEnd: { zIndex: 0 } }}
-            exit={{ y: "-100%", transition: { delay: 1, duration: 1 } }}
-            transition={{ duration: 1 }}
+            animate={{ y: 0, zIndex: -1, transitionEnd: { zIndex: 0 } }}
+            exit={{ y: "-100%", transition: delayedTransition }}
+            transition={transition}
           >
             {children}
           </motion.div>
         </div>
-        <div className="h-full bg-elevator px-4">
-          <menu className="mt-16 flex flex-col gap-4">
-            {links.map((link, index) => (
-              <li
-                key={index}
-                className={cn("h-9 w-9 rounded-full bg-gray-500", {
-                  "outline outline-orange-400": router.route === link.href,
-                })}
-              >
-                <Link
-                  href={link.href}
-                  className="flex h-full w-full items-center justify-center text-white"
-                >
-                  {link.display}
-                </Link>
-              </li>
+      </div>
+
+      {/* right hand side of the elevator */}
+      <div className="mr-auto flex h-full items-center px-4 md:min-w-[6-rem] lg:min-w-[8rem]">
+        <nav className="rounded-md border border-gray-500 bg-gray-400 p-2 shadow-lg">
+          <ul className="flex flex-col justify-center gap-4">
+            {links.map((link) => (
+              <ElevatorButton key={link.label} href={link.href}>
+                {link.display}
+              </ElevatorButton>
             ))}
-          </menu>
-        </div>
+          </ul>
+        </nav>
       </div>
     </div>
   );
@@ -118,17 +120,41 @@ type ElevatorDoorProps = {
 };
 
 const ElevatorDoor: FC<ElevatorDoorProps> = ({ direction }) => {
+  const targetX = direction === "left" ? "-100%" : "100%";
   return (
     <motion.div
       key={`door-${direction}`}
       className="box-border h-full w-1/2 border-8 border-gray-300 bg-green-100/30 backdrop-blur"
       initial={{ x: 0 }}
-      animate={{
-        zIndex: 99,
-        x: direction === "left" ? "-100%" : "100%",
-      }}
-      exit={{ x: 0, transition: { duration: 1 } }}
-      transition={{ delay: 1, duration: 1 }}
+      animate={{ x: targetX, zIndex: 99 }}
+      exit={{ x: 0, transition: transition }}
+      transition={delayedTransition}
     />
+  );
+};
+
+type ElevatorButtonProps = {
+  href: string;
+};
+
+const ElevatorButton: FC<PropsWithChildren<ElevatorButtonProps>> = ({
+  href,
+  children,
+}) => {
+  const router = useRouter();
+
+  return (
+    <li
+      className={cn("h-9 w-9 rounded-full bg-gray-300", {
+        "outline outline-orange-400": router.route === href,
+      })}
+    >
+      <Link
+        href={href}
+        className="flex h-full w-full items-center justify-center"
+      >
+        {children}
+      </Link>
+    </li>
   );
 };
