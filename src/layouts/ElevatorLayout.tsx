@@ -1,5 +1,6 @@
 import cn from "classnames";
 import { motion } from "framer-motion";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -47,6 +48,11 @@ export const ElevatorLayout: NextPage<ElevatorLayoutProps> = ({
   );
 };
 
+const pageIndexAtom = atom({ fromIndex: 0, toIndex: 0 });
+const shouldElevatorGoUpAtom = atom(
+  (get) => get(pageIndexAtom).toIndex < get(pageIndexAtom).fromIndex
+);
+
 const transition = { duration: 1 };
 const delayedTransition = { delay: 1, duration: 1 };
 
@@ -58,6 +64,8 @@ const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
   children,
   currentLabel,
 }) => {
+  const [pageIndex, setPageIndex] = useAtom(pageIndexAtom);
+
   return (
     <div className="flex h-full w-full">
       {/* left hand side of the elevator */}
@@ -67,16 +75,8 @@ const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
       <div className="flex h-full flex-grow flex-col xl:max-w-screen-xl">
         {/* top information panel */}
         <div className="flex h-32 flex-col items-center justify-end">
-          <p className="mb-4 flex h-8 w-40 items-center justify-center overflow-hidden rounded bg-black">
-            <motion.span
-              className="select-none font-elevator text-xl font-extrabold text-white"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-100%", transition: delayedTransition }}
-              transition={transition}
-            >
-              {currentLabel}
-            </motion.span>
+          <p className="mb-4 flex h-8 w-40 items-center justify-center overflow-hidden rounded bg-slate-800">
+            <ElevatorLabel currentLabel={currentLabel} />
           </p>
         </div>
 
@@ -87,15 +87,7 @@ const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
             <ElevatorDoor direction="right" />
           </div>
 
-          <motion.div
-            className="absolute h-full w-full overflow-hidden border-2 border-gray-600"
-            initial={{ y: "100%" }}
-            animate={{ y: 0, zIndex: -1, transitionEnd: { zIndex: 0 } }}
-            exit={{ y: "-100%", transition: delayedTransition }}
-            transition={transition}
-          >
-            {children}
-          </motion.div>
+          <ElevatorContentArea>{children}</ElevatorContentArea>
         </div>
       </div>
 
@@ -103,8 +95,12 @@ const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
       <div className="mr-auto flex h-full items-center px-4 md:min-w-[6-rem] lg:min-w-[8rem]">
         <nav className="rounded-md border border-gray-500 bg-gray-400 p-2 shadow-lg">
           <ul className="flex flex-col justify-center gap-4">
-            {links.map((link) => (
-              <ElevatorButton key={link.label} href={link.href}>
+            {links.map((link, index) => (
+              <ElevatorButton
+                key={link.label}
+                href={link.href}
+                onClick={() => setPageIndex({ ...pageIndex, toIndex: index })}
+              >
                 {link.display}
               </ElevatorButton>
             ))}
@@ -112,6 +108,53 @@ const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
         </nav>
       </div>
     </div>
+  );
+};
+
+const ElevatorLabel: FC<{
+  currentLabel: ElevatorLabel;
+}> = ({ currentLabel }) => {
+  const shouldElevatorGoUp = useAtomValue(shouldElevatorGoUpAtom);
+
+  return (
+    <motion.span
+      className="select-none font-elevator text-xl font-extrabold text-white"
+      initial={{ y: shouldElevatorGoUp ? "-100%" : "100%" }}
+      animate={{ y: 0 }}
+      exit={{
+        y: shouldElevatorGoUp ? "100%" : "-100%",
+        transition: delayedTransition,
+      }}
+      transition={transition}
+    >
+      {currentLabel}
+    </motion.span>
+  );
+};
+
+const ElevatorContentArea: FC<PropsWithChildren> = ({ children }) => {
+  const [pageIndex, setPageIndex] = useAtom(pageIndexAtom);
+  const shouldElevatorGoUp = useAtomValue(shouldElevatorGoUpAtom);
+
+  return (
+    <motion.div
+      className="absolute h-full w-full overflow-hidden border-2 border-b-0 border-gray-600"
+      initial={{ y: shouldElevatorGoUp ? "-100%" : "100%" }}
+      animate={{ y: 0, zIndex: -1, transitionEnd: { zIndex: 0 } }}
+      exit={{
+        y: shouldElevatorGoUp ? "100%" : "-100%",
+        transition: delayedTransition,
+      }}
+      transition={transition}
+      onAnimationComplete={(def) => {
+        // @ts-expect-error TS2339 (def is not typed properly)
+        if (def.y === 0) {
+          setPageIndex({ fromIndex: pageIndex.toIndex, toIndex: 0 });
+        }
+      }}
+    >
+      {children}
+    </motion.div>
   );
 };
 
@@ -135,19 +178,22 @@ const ElevatorDoor: FC<ElevatorDoorProps> = ({ direction }) => {
 
 type ElevatorButtonProps = {
   href: string;
+  onClick?: React.MouseEventHandler<HTMLLIElement>;
 };
 
 const ElevatorButton: FC<PropsWithChildren<ElevatorButtonProps>> = ({
   href,
   children,
+  onClick,
 }) => {
   const router = useRouter();
 
   return (
     <li
       className={cn("h-9 w-9 rounded-full bg-gray-300", {
-        "outline outline-orange-400": router.route === href,
+        "outline outline-orange-400": router.pathname === href,
       })}
+      onClick={onClick}
     >
       <Link
         href={href}
