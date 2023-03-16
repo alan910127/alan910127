@@ -81,7 +81,7 @@ const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
         </div>
 
         {/* door and page content */}
-        <div className="relative z-[-100] w-full flex-1 overflow-hidden bg-content">
+        <div className="relative w-full flex-1 overflow-hidden bg-content">
           <div className="absolute flex h-full w-full">
             <ElevatorDoor direction="left" />
             <ElevatorDoor direction="right" />
@@ -140,7 +140,7 @@ const ElevatorContentArea: FC<PropsWithChildren> = ({ children }) => {
     <motion.div
       className="absolute h-full w-full overflow-hidden border-2 border-b-0 border-gray-600"
       initial={{ y: shouldElevatorGoUp ? "-100%" : "100%" }}
-      animate={{ y: 0, zIndex: -1, transitionEnd: { zIndex: 0 } }}
+      animate={{ y: 0 }}
       exit={{
         y: shouldElevatorGoUp ? "100%" : "-100%",
         transition: delayedTransition,
@@ -168,8 +168,8 @@ const ElevatorDoor: FC<ElevatorDoorProps> = ({ direction }) => {
     <motion.div
       key={`door-${direction}`}
       className="box-border h-full w-1/2 border-8 border-gray-300 bg-green-100/30 backdrop-blur"
-      initial={{ x: 0 }}
-      animate={{ x: targetX, zIndex: 99 }}
+      initial={{ x: 0, zIndex: 99 }}
+      animate={{ x: targetX }}
       exit={{ x: 0, transition: transition }}
       transition={delayedTransition}
     />
