@@ -15,7 +15,7 @@ const labels = [
   "About Me",
   "Projects",
   "Contact Me",
-  "Error!",
+  "Danger Zone",
 ] as const;
 const [homeLabel, aboutMeLabel, projectsLabel, contactMeLabel] = labels;
 type ElevatorLabel = (typeof labels)[number];
