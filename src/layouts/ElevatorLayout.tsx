@@ -6,9 +6,12 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { type FC, type PropsWithChildren, type ReactNode } from "react";
+import { AiFillHome } from "react-icons/ai";
+import { BsClipboardDataFill, BsFillPersonFill } from "react-icons/bs";
+import { HiMail } from "react-icons/hi";
 
 const labels = ["Home", "About Me", "Projects", "Contact Me"] as const;
-const [home, aboutMe, projects, contactMe] = labels;
+const [homeLabel, aboutMeLabel, projectsLabel, contactMeLabel] = labels;
 type ElevatorLabel = (typeof labels)[number];
 
 type LinkDetail = {
@@ -18,10 +21,26 @@ type LinkDetail = {
 };
 
 const links: LinkDetail[] = [
-  { href: "/", label: home, display: <div>A</div> },
-  { href: "/about", label: aboutMe, display: <div>A</div> },
-  { href: "/projects", label: projects, display: <div>A</div> },
-  { href: "/contact", label: contactMe, display: <div>A</div> },
+  {
+    href: "/",
+    label: homeLabel,
+    display: <AiFillHome className="text-xl" />,
+  },
+  {
+    href: "/about",
+    label: aboutMeLabel,
+    display: <BsFillPersonFill className="text-xl" />,
+  },
+  {
+    href: "/projects",
+    label: projectsLabel,
+    display: <BsClipboardDataFill className="text-xl" />,
+  },
+  {
+    href: "/contact",
+    label: contactMeLabel,
+    display: <HiMail className="text-xl" />,
+  },
 ];
 
 type ElevatorLayoutProps = PropsWithChildren<{
