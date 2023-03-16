@@ -1,18 +1,18 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-import { Electrolize, Inter } from "next/font/google";
+import { Electrolize, Sofia_Sans } from "next/font/google";
 
 import "@/styles/globals.css";
 import { AnimatePresence } from "framer-motion";
 
-const inter = Inter({
+const main = Sofia_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-main",
 });
 
-const electrolize = Electrolize({
+const elevator = Electrolize({
   weight: ["400"],
   subsets: ["latin"],
-  variable: "--font-electrolize",
+  variable: "--font-elevator",
 });
 
 const MyApp: AppType = ({ Component, pageProps, router }) => {
@@ -20,7 +20,7 @@ const MyApp: AppType = ({ Component, pageProps, router }) => {
     <AnimatePresence mode="wait">
       <div
         key={(router as { asPath: string }).asPath}
-        className={`${inter.variable} ${electrolize.variable} h-screen w-full`}
+        className={`${main.variable} ${elevator.variable} h-screen w-full`}
       >
         <Component {...pageProps} />
       </div>

@@ -11,8 +11,8 @@ const config = {
         elevator: "#b2c5d6",
       },
       fontFamily: {
-        inter: ["var(--font-inter)", ...fontFamily.sans],
-        elevator: ["var(--font-electrolize)", ...fontFamily.mono],
+        main: ["var(--font-main)", ...fontFamily.sans],
+        elevator: ["var(--font-elevator)", ...fontFamily.mono],
       },
     },
   },
