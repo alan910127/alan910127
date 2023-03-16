@@ -10,7 +10,13 @@ import { AiFillHome } from "react-icons/ai";
 import { BsClipboardDataFill, BsFillPersonFill } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 
-const labels = ["Home", "About Me", "Projects", "Contact Me"] as const;
+const labels = [
+  "Home",
+  "About Me",
+  "Projects",
+  "Contact Me",
+  "Error!",
+] as const;
 const [homeLabel, aboutMeLabel, projectsLabel, contactMeLabel] = labels;
 type ElevatorLabel = (typeof labels)[number];
 
