@@ -110,7 +110,7 @@ const Elevator: FC<PropsWithChildren<ElevatorProps>> = ({
       <div className="flex h-full flex-grow flex-col xl:max-w-screen-xl">
         {/* top information panel */}
         <div className="flex h-32 flex-col items-center justify-end">
-          <p className="mb-4 flex h-8 w-40 items-center justify-center overflow-hidden rounded bg-slate-800">
+          <p className="mb-4 flex h-10 w-40 items-center justify-center overflow-hidden rounded bg-slate-800">
             <ElevatorLabel currentLabel={currentLabel} />
           </p>
         </div>

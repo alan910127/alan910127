@@ -1,3 +1,4 @@
+import { ScrollableMain } from "@/components/ScrollableMain";
 import { ElevatorLayout } from "@/layouts/ElevatorLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type NextPage } from "next";
@@ -30,7 +31,7 @@ const ContactPage: NextPage = () => {
       title="Hello, I am Alan | Contact"
       currentLabel="Contact Me"
     >
-      <main className="flex h-full flex-col items-center justify-center gap-8 px-16 font-main">
+      <ScrollableMain>
         <h1 className="text-2xl font-bold">
           Feel free to send an email if you are interested to talk with me!
         </h1>
@@ -76,7 +77,7 @@ const ContactPage: NextPage = () => {
             </button>
           </form>
         </section>
-      </main>
+      </ScrollableMain>
     </ElevatorLayout>
   );
 };

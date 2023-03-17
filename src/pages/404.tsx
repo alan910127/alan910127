@@ -12,9 +12,8 @@ const NotFoundPage: NextPage = () => {
         <h1 className="text-4xl font-extrabold">
           Cannot find the page you want
         </h1>
-        <p className="text-center text-xl">
-          Why are you here? You just got into a wrong floor!
-          <br />
+        <p className="flex flex-col gap-4 text-center text-xl">
+          <span>Why are you here? You just got into a wrong floor!</span>
           <Link href="/" className="underline">
             Go back to the floor where you should be in
           </Link>

@@ -1,3 +1,4 @@
+import { ScrollableMain } from "@/components/ScrollableMain";
 import { ElevatorLayout } from "@/layouts/ElevatorLayout";
 import { motion } from "framer-motion";
 import { type NextPage } from "next";
@@ -9,7 +10,7 @@ import studyImage from "~/images/study.jpg";
 const AboutPage: NextPage = () => {
   return (
     <ElevatorLayout title="Hello, I am Alan | About" currentLabel="About Me">
-      <main className="flex h-full flex-col items-start justify-center gap-8 px-4 font-main sm:gap-16 md:px-8 lg:px-12 xl:px-16">
+      <ScrollableMain className="flex flex-col gap-8">
         <motion.section
           className="flex w-full items-center gap-8"
           initial={{ opacity: 0, x: "-25%" }}
@@ -24,7 +25,7 @@ const AboutPage: NextPage = () => {
           />
           <div className="flex w-full flex-col items-start gap-2">
             <h2 className="text-3xl font-bold">Who am I</h2>
-            <p className="px-8 text-xl">
+            <p className="px-4 text-xl">
               My name is Li-Lun Lin (林立倫). I am currently a junior in
               computer science at National Yang Ming Chiao Tung University
               (NYCU). I am also working on a Human Computer Interaction (HCI)
@@ -48,7 +49,7 @@ const AboutPage: NextPage = () => {
           />
           <div className="flex w-full flex-col items-start gap-2">
             <h2 className="text-3xl font-bold">My Favorite Things</h2>
-            <p className="px-8 text-xl">
+            <p className="px-4 text-xl">
               I am insterested with various things. For entertainment, I likes
               to play badminton with my friends at school, in addition, the
               online game I like the most is KartRider and my favorite anime
@@ -56,7 +57,7 @@ const AboutPage: NextPage = () => {
             </p>
           </div>
         </motion.section>
-      </main>
+      </ScrollableMain>
     </ElevatorLayout>
   );
 };

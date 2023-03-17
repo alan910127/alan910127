@@ -1,3 +1,4 @@
+import { ScrollableMain } from "@/components/ScrollableMain";
 import { ElevatorLayout } from "@/layouts/ElevatorLayout";
 import { motion } from "framer-motion";
 import { type NextPage } from "next";
@@ -7,7 +8,7 @@ import avatar from "~/images/avatar.jpg";
 const HomePage: NextPage = () => {
   return (
     <ElevatorLayout title="Hello, I am Alan" currentLabel="Home">
-      <main className="flex h-full flex-col items-center justify-center gap-16 px-4 font-main">
+      <ScrollableMain className="flex flex-col items-center gap-8">
         <motion.section
           initial={{ opacity: 0, x: "-50%" }}
           animate={{ x: 0, opacity: 1 }}
@@ -39,7 +40,7 @@ const HomePage: NextPage = () => {
             A passionate learner in Computer Science and new technology
           </p>
         </motion.section>
-      </main>
+      </ScrollableMain>
     </ElevatorLayout>
   );
 };

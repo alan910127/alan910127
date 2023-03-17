@@ -1,3 +1,4 @@
+import { ScrollableMain } from "@/components/ScrollableMain";
 import { ElevatorLayout } from "@/layouts/ElevatorLayout";
 import cn from "classnames";
 import { LayoutGroup, motion } from "framer-motion";
@@ -7,13 +8,30 @@ import { useMemo, useState, type FC } from "react";
 const SkillsPage: NextPage = () => {
   return (
     <ElevatorLayout title="Hello, I am Alan | Skills" currentLabel="Skills">
-      <main className="items-begin flex h-full flex-col flex-wrap justify-center gap-8 px-16 font-main">
+      <ScrollableMain className="flex flex-col gap-8">
         <ProgrammingLanguageSection />
 
-        <WebDevelopmentSection />
+        <SkillSection
+          title="Web Development"
+          skillsList={[
+            "React",
+            "Vue.js",
+            "Next.js",
+            "Astro",
+            "Tailwind CSS",
+            "tRPC",
+            "GraphQL",
+            "REST API",
+            "Express.js",
+            "fastify",
+            "FastAPI",
+            "Flask",
+            "Prisma",
+          ]}
+        />
 
-        <OthersSection />
-      </main>
+        <SkillSection title="Others" skillsList={["Docker", "Git", "LaTeX"]} />
+      </ScrollableMain>
     </ElevatorLayout>
   );
 };
@@ -41,28 +59,30 @@ const ProgrammingLanguageSection: FC = () => {
 
   return (
     <section className="w-full">
-      <div className="flex flex-col items-start justify-between md:flex-row md:items-end md:gap-4">
+      <div className="mb-2 flex flex-col items-start justify-between md:flex-row md:items-end">
         <h2 className="text-xl font-bold">Programming Languages</h2>
-        <p className="flex gap-2 text-slate-600">
+        <p className="flex flex-wrap gap-2 text-slate-600">
           <span>Rank by</span>
-          {rankFields.map((fieldName, index) => (
-            <>
-              <button
-                key={fieldName}
-                onClick={() => setRankField(fieldName)}
-                className={cn("underline", {
-                  "font-bold": rankField === fieldName,
-                })}
-              >
-                {fieldName}
-              </button>
-              {index < rankFields.length - 1 && <span key={index}> | </span>}
-            </>
-          ))}
+          <div>
+            {rankFields.map((fieldName, index) => (
+              <>
+                <button
+                  key={fieldName}
+                  onClick={() => setRankField(fieldName)}
+                  className={cn("underline", {
+                    "font-bold": rankField === fieldName,
+                  })}
+                >
+                  {fieldName}
+                </button>
+                {index < rankFields.length - 1 && <span key={index}> | </span>}
+              </>
+            ))}
+          </div>
         </p>
       </div>
       <LayoutGroup>
-        <ol className="flex gap-4 px-4">
+        <ol className="my-4 flex flex-wrap gap-4 pl-4">
           {languages.map((language) => (
             <motion.li
               key={language.name}
@@ -80,44 +100,17 @@ const ProgrammingLanguageSection: FC = () => {
   );
 };
 
-const WebDevelopmentSection: FC = () => {
-  const skills = [
-    "React",
-    "Vue.js",
-    "Next.js",
-    "Astro",
-    "Tailwind CSS",
-    "tRPC",
-    "GraphQL",
-    "REST API",
-    "Express.js",
-    "fastify",
-    "FastAPI",
-    "Flask",
-    "Prisma",
-  ];
-
-  return (
-    <section className="w-full">
-      <h2 className="text-xl font-bold">Web Development</h2>
-      <ul className="flex flex-wrap gap-4 px-4">
-        {skills.map((name) => (
-          <li key={name} className="text-lg">
-            {name}
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
+type SkillSectionProps = {
+  title: string;
+  skillsList: string[];
 };
 
-const OthersSection: FC = () => {
-  const skills = ["Docker", "Git", "LaTeX"];
+const SkillSection: FC<SkillSectionProps> = ({ skillsList, title }) => {
   return (
     <section className="w-full">
-      <h2 className="text-xl font-bold">Others</h2>
+      <h2 className="mb-4 text-xl font-bold">{title}</h2>
       <ul className="flex flex-wrap gap-4 px-4">
-        {skills.map((name) => (
+        {skillsList.map((name) => (
           <li key={name} className="text-lg">
             {name}
           </li>
