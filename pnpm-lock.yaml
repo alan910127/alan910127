@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hookform/resolvers': ^2.9.11
   '@types/eslint': ^8.21.1
   '@types/node': ^18.14.0
   '@types/prettier': ^2.7.2
@@ -20,18 +21,21 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.2.1
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: ^7.43.6
   react-icons: ^4.8.0
   tailwindcss: ^3.2.0
   typescript: ^4.9.5
-  zod: ^3.20.6
+  zod: ^3.21.4
 
 dependencies:
+  '@hookform/resolvers': 2.9.11_react-hook-form@7.43.6
   classnames: 2.3.2
   framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
   jotai: 2.0.3_react@18.2.0
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.43.6_react@18.2.0
   react-icons: 4.8.0_react@18.2.0
   zod: 3.21.4
 
@@ -110,6 +114,14 @@ packages:
     resolution: {integrity: sha512-lxJ9R5ygVm8ZWgYdUweoq5ownDlJ4upvoWmO4eLxBYHdMo+vZ/Rx0EN6MbKWDJOSUGrqJy2Gt+Dyv/VKml0fjg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@hookform/resolvers/2.9.11_react-hook-form@7.43.6:
+    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.6_react@18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -2284,6 +2296,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hook-form/7.43.6_react@18.2.0:
+    resolution: {integrity: sha512-zEXpju7XnrszIW5AMIjGw3ta/NmhkXG02fnSbIt4MfCegdQhmLkAfeM8bba87Co3oyBDsp8wONP8POcRToPBVw==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-icons/4.8.0_react@18.2.0:
