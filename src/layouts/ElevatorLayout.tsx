@@ -6,18 +6,23 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { type FC, type PropsWithChildren, type ReactNode } from "react";
+
 import { AiFillHome } from "react-icons/ai";
 import { BsClipboardDataFill, BsFillPersonFill } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
+import { MdHandyman } from "react-icons/md";
 
 const labels = [
   "Home",
   "About Me",
+  "Skills",
   "Projects",
   "Contact Me",
   "Danger Zone",
+  "Server Error",
 ] as const;
-const [homeLabel, aboutMeLabel, projectsLabel, contactMeLabel] = labels;
+const [homeLabel, aboutMeLabel, skillsLabel, projectsLabel, contactMeLabel] =
+  labels;
 type ElevatorLabel = (typeof labels)[number];
 
 type LinkDetail = {
@@ -36,6 +41,11 @@ const links: LinkDetail[] = [
     href: "/about",
     label: aboutMeLabel,
     display: <BsFillPersonFill className="text-xl" />,
+  },
+  {
+    href: "/skills",
+    label: skillsLabel,
+    display: <MdHandyman className="text-xl" />,
   },
   {
     href: "/projects",
