@@ -9,7 +9,7 @@ const HomePage: NextPage = () => {
     <ElevatorLayout title="Hello, I am Alan" currentLabel="Home">
       <main className="flex h-full flex-col items-center justify-center gap-16 px-4 font-main">
         <motion.section
-          initial={{ opacity: 0, x: "-100%" }}
+          initial={{ opacity: 0, x: "-50%" }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.75, duration: 1 }}
         >
@@ -22,8 +22,8 @@ const HomePage: NextPage = () => {
 
         <motion.section
           className="flex flex-col gap-4 text-slate-700"
-          initial={{ opacity: 0, x: "-100%" }}
-          animate={{ x: 0, opacity: 1 }}
+          initial={{ opacity: 0, y: "50%" }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 1 }}
         >
           <h1 className="flex flex-col items-center text-lg sm:text-xl md:text-2xl">
