@@ -10,7 +10,7 @@ import studyImage from "~/images/study.jpg";
 const AboutPage: NextPage = () => {
   return (
     <ElevatorLayout title="Hello, I am Alan | About" currentLabel="About Me">
-      <ScrollableMain className="flex flex-col gap-8">
+      <ScrollableMain className="flex flex-col gap-8 lg:gap-16">
         <motion.section
           className="flex w-full items-center gap-8"
           initial={{ opacity: 0, x: "-25%" }}

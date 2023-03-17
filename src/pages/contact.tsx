@@ -31,16 +31,17 @@ const ContactPage: NextPage = () => {
       title="Hello, I am Alan | Contact"
       currentLabel="Contact Me"
     >
-      <ScrollableMain>
-        <h1 className="text-2xl font-bold">
-          Feel free to send an email if you are interested to talk with me!
-        </h1>
-        <section className="grid w-full grid-cols-1 items-center gap-8 md:grid-cols-2">
-          <Image
-            src={composeImage}
-            alt="compose a mail"
-            className="hidden rounded-lg shadow-lg md:block"
-          />
+      <ScrollableMain className="flex gap-8">
+        <Image
+          src={composeImage}
+          alt="compose a mail"
+          className="hidden w-1/2 rounded-lg shadow-lg md:block"
+        />
+        <section className="flex flex-col gap-4">
+          <h1 className="text-2xl font-bold">
+            Feel free to send an email if you want to have a conversation with
+            me!
+          </h1>
           <form
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSubmit={handleSubmit(sendEmail)}
