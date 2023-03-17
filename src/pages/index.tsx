@@ -3,6 +3,8 @@ import { ElevatorLayout } from "@/layouts/ElevatorLayout";
 import { motion } from "framer-motion";
 import { type NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { BsGithub, BsLinkedin } from "react-icons/bs";
 import avatar from "~/images/avatar.jpg";
 
 const HomePage: NextPage = () => {
@@ -22,7 +24,7 @@ const HomePage: NextPage = () => {
         </motion.section>
 
         <motion.section
-          className="flex flex-col gap-4 text-slate-700"
+          className="flex flex-col items-center gap-4 text-slate-700"
           initial={{ opacity: 0, y: "50%" }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 1 }}
@@ -39,6 +41,19 @@ const HomePage: NextPage = () => {
           <p className="text-center italic text-slate-500 sm:text-lg md:text-xl">
             A passionate learner in Computer Science and new technology
           </p>
+
+          <ul className="mt-4 flex gap-8 text-2xl">
+            <li>
+              <Link href="https://github.com/alan910127">
+                <BsGithub />
+              </Link>
+            </li>
+            <li>
+              <Link href="https://www.linkedin.com/in/lilunlin0127">
+                <BsLinkedin />
+              </Link>
+            </li>
+          </ul>
         </motion.section>
       </ScrollableMain>
     </ElevatorLayout>
