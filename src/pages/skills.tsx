@@ -45,8 +45,8 @@ type LanguageMeta = { name: string } & Record<RankFields, number>;
 
 const languagesMeta: LanguageMeta[] = [
   { name: "Rust", favorite: 1, proficiency: 4 },
-  { name: "C++", favorite: 4, proficiency: 1 },
-  { name: "Python", favorite: 3, proficiency: 3 },
+  { name: "C++", favorite: 3, proficiency: 1 },
+  { name: "Python", favorite: 4, proficiency: 3 },
   { name: "TypeScript", favorite: 2, proficiency: 2 },
 ];
 

@@ -16,7 +16,7 @@ const ProjectsPage: NextPage = () => {
         <section className="relative h-full w-full">
           <Carousel
             items={[
-              <ProjectArticle
+              <ProjectCard
                 key="Next.js API Builder"
                 imageSrc={apiBuilderImage}
                 imageAlt="API builder"
@@ -30,13 +30,13 @@ const ProjectsPage: NextPage = () => {
                 ]}
                 repoLink="https://github.com/alan910127/next-api-builder"
               >
-                A schema validation based type safe REST API builder designed to
+                A schema validation based type-safe REST API builder designed to
                 work with Next.js{" "}
                 <code className="rounded bg-gray-100 px-2">pages/api</code>{" "}
                 directory.
-              </ProjectArticle>,
+              </ProjectCard>,
 
-              <ProjectArticle
+              <ProjectCard
                 key="placeholder"
                 imageSrc={studyImage}
                 imageAlt="placeholder"
@@ -48,7 +48,7 @@ const ProjectsPage: NextPage = () => {
                 nam provident dolorum similique earum, praesentium voluptatem
                 nihil nulla tempore aspernatur exercitationem! Accusantium,
                 eveniet!
-              </ProjectArticle>,
+              </ProjectCard>,
             ]}
           />
         </section>
@@ -67,7 +67,7 @@ type ProjectArticleProps = PropsWithChildren<{
   tags?: string[];
 }>;
 
-const ProjectArticle: FC<ProjectArticleProps> = ({
+const ProjectCard: FC<ProjectArticleProps> = ({
   imageSrc,
   imageAlt,
   title,
@@ -86,7 +86,7 @@ const ProjectArticle: FC<ProjectArticleProps> = ({
       />
       <div className="flex flex-col items-start justify-center gap-4 px-4 py-8">
         <h2 className="text-2xl font-bold">{title}</h2>
-        <ul className="flex w-full gap-1 overflow-x-auto  scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-thumb-rounded-full hover:scrollbar-thumb-blue-400">
+        <ul className="flex w-full flex-wrap gap-1">
           {tags &&
             tags.map((tag) => (
               <li
