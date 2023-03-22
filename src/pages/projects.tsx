@@ -77,7 +77,13 @@ const ProjectArticle: FC<ProjectArticleProps> = ({
 }) => {
   return (
     <article className="inline-grid h-full grid-cols-1 items-center overflow-y-auto rounded-xl bg-white shadow-2xl scrollbar-thin  scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-thumb-rounded-full hover:scrollbar-thumb-blue-400 md:grid-cols-2">
-      <Image src={imageSrc} alt={imageAlt} className="object-cover" />
+      <Image
+        src={imageSrc}
+        alt={imageAlt}
+        className="object-cover"
+        draggable={false}
+        placeholder="blur"
+      />
       <div className="flex flex-col items-start justify-center gap-4 px-4 py-8">
         <h2 className="text-2xl font-bold">{title}</h2>
         <ul className="flex w-full gap-1 overflow-x-auto  scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-thumb-rounded-full hover:scrollbar-thumb-blue-400">

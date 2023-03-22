@@ -19,7 +19,8 @@ const HomePage: NextPage = () => {
           <Image
             src={avatar}
             alt="Avatar"
-            className="h-40 w-40 rounded-full sm:h-48 sm:w-48 md:h-64 md:w-64"
+            className="h-40 w-40 rounded-full object-cover sm:h-48 sm:w-48 md:h-64 md:w-64"
+            placeholder="blur"
           />
         </motion.section>
 

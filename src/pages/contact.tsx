@@ -35,7 +35,8 @@ const ContactPage: NextPage = () => {
         <Image
           src={composeImage}
           alt="compose a mail"
-          className="hidden w-1/2 rounded-lg shadow-lg md:block"
+          className="hidden w-1/2 rounded-lg object-cover shadow-lg md:block"
+          placeholder="blur"
         />
         <section className="flex flex-col gap-4">
           <h1 className="text-2xl font-bold">
